@@ -1,7 +1,7 @@
 package com.github.brunosc.lor;
 
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LoRUtils {
 
@@ -14,8 +14,7 @@ public class LoRUtils {
     }
 
     public static String enumPrettyName(String name) {
-        return List.of(name.split("_"))
-                .stream()
+        return Stream.of(name.split("_"))
                 .map(String::toLowerCase)
                 .map(s -> Character.toUpperCase(s.charAt(0)) + s.substring(1))
                 .collect(Collectors.joining(" "));

@@ -2,10 +2,11 @@ package com.github.brunosc.lor.domain;
 
 import com.github.brunosc.lor.LoRUtils;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
+import static java.util.stream.Collectors.toList;
 
 public enum LoRChampion {
 
@@ -62,9 +63,7 @@ public enum LoRChampion {
     private static final List<LoRChampion> champions;
 
     static {
-        champions = EnumSet.allOf(LoRChampion.class)
-                .stream()
-                .collect(toUnmodifiableList());
+        champions = new ArrayList<>(EnumSet.allOf(LoRChampion.class));
     }
 
     LoRChampion(String id) {

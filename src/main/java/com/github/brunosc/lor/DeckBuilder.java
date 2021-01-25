@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import static java.util.stream.Collectors.toUnmodifiableSet;
+import static java.util.stream.Collectors.toSet;
 
 class DeckBuilder {
 
@@ -36,7 +36,7 @@ class DeckBuilder {
         return cards.keySet().stream()
                 .filter(Objects::nonNull)
                 .map(LoRCard::getRegion)
-                .collect(toUnmodifiableSet());
+                .collect(toSet());
     }
 
     private Set<LoRChampion> champions() {
@@ -45,7 +45,7 @@ class DeckBuilder {
                 .map(LoRCard::getCardCode)
                 .filter(LoRChampion::isChampion)
                 .map(LoRChampion::fromCardCode)
-                .collect(toUnmodifiableSet());
+                .collect(toSet());
     }
 
 }

@@ -10,12 +10,13 @@ class Base32 {
     private static final char[]                  CHARS     = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
     private static final int                     MASK      = CHARS.length - 1;
     private static final int                     SHIFT     = Integer.numberOfTrailingZeros(CHARS.length);
-    private static final Map<Character, Integer> CHAR_MAP  = new HashMap<>()
-    {{
+    private static final Map<Character, Integer> CHAR_MAP  = new HashMap<>();
+
+    static {
         for (int i = 0; i < CHARS.length; i++) {
-            put(CHARS[i], i);
+            CHAR_MAP.put(CHARS[i], i);
         }
-    }};
+    }
 
     static Byte[] decodeBoxed(String code) {
         byte[] input  = decode(code);

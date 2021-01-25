@@ -2,10 +2,9 @@ package com.github.brunosc.lor.domain;
 
 import com.github.brunosc.lor.LoRUtils;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-
-import static java.util.stream.Collectors.toUnmodifiableList;
 
 public enum LoRRegion {
     DEMACIA("DE", 0),
@@ -23,9 +22,7 @@ public enum LoRRegion {
     private static final List<LoRRegion> regions;
 
     static {
-        regions = EnumSet.allOf(LoRRegion.class)
-                .stream()
-                .collect(toUnmodifiableList());
+        regions = new ArrayList<>(EnumSet.allOf(LoRRegion.class));
     }
 
     LoRRegion(String code, int id) {
