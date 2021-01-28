@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 public enum LoRChampion {
 
     FIZZ("02BW046"),
@@ -56,6 +54,7 @@ public enum LoRChampion {
     SEJUANI("02FR002"),
     NAUTILUS("02BW053"),
     TRYNDAMERE("01FR039"),
+    SWAIN("02NX007"),
     AURELION_SOL("03MT087");
 
     private final String id;
