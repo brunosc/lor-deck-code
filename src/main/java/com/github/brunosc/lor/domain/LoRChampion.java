@@ -55,7 +55,8 @@ public enum LoRChampion {
     NAUTILUS("02BW053"),
     TRYNDAMERE("01FR039"),
     SWAIN("02NX007"),
-    AURELION_SOL("03MT087");
+    AURELION_SOL("03MT087"),
+    APHELIOS("03MT217");
 
     private final String id;
 

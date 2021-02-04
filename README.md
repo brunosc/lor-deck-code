@@ -47,9 +47,9 @@ public class LoRCard {
 
 <dependencies>
     <dependency>
-        <groupId>com.github.brunosc.lor</groupId>
+        <groupId>com.github.brunosc</groupId>
         <artifactId>lor-deck-code</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.4</version>
     </dependency>
 </dependencies>
 ```
@@ -65,6 +65,6 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.brunosc.lor:lor-deck-code:0.0.1'
+  implementation 'com.github.brunosc.lor:lor-deck-code:0.0.4'
 }
 ```
