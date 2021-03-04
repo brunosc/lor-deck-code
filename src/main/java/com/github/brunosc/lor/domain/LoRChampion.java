@@ -56,7 +56,16 @@ public enum LoRChampion {
     TRYNDAMERE("01FR039"),
     SWAIN("02NX007"),
     AURELION_SOL("03MT087"),
-    APHELIOS("03MT217");
+    APHELIOS("03MT217"),
+    LEBLANC("04NX004"),
+    LISSANDRA("04FR005"),
+    RENEKTON("04SH067"),
+    SIVIR("04SH020"),
+    KINDRED("04SI005"),
+    TALIYAH("04SH073"),
+    JARVAN_IV("04DE008"),
+    NASUS("04SH047");
+
 
     private final String id;
 

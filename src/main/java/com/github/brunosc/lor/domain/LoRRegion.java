@@ -1,6 +1,7 @@
 package com.github.brunosc.lor.domain;
 
 import com.github.brunosc.lor.LoRUtils;
+import com.github.brunosc.lor.exception.RegionDoesNotExistException;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -14,6 +15,7 @@ public enum LoRRegion {
     PILTOVER_AND_ZAUN("PZ", 4),
     SHADOW_ILES("SI", 5),
     BILGEWATER("BW", 6),
+    SHURIMA("SH", 7),
     MOUNT_TARGON("MT", 9);
 
     private final String code;
@@ -45,12 +47,15 @@ public enum LoRRegion {
     public static LoRRegion fromCode(String code) {
         return regions.stream()
                 .filter(region -> region.getCode().equalsIgnoreCase(code))
-                .findFirst().orElseThrow(() -> new RuntimeException("region does not exist!"));
+                .findFirst()
+                .orElseThrow(() -> new RegionDoesNotExistException(code));
     }
 
     public static LoRRegion fromId(int id) {
         return regions.stream()
                 .filter(region -> region.getId() == id)
-                .findFirst().orElseThrow(() -> new RuntimeException("region does not exist!"));
+                .findFirst()
+                .orElseThrow(() -> new RegionDoesNotExistException(id));
     }
+
 }

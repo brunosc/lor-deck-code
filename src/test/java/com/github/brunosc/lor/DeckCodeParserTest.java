@@ -323,6 +323,38 @@ class DeckCodeParserTest {
         assertTrue(checkSameDeck(deck, decoded));
     }
 
+    @Test
+    void shurima() {
+        DeckBuilder deckBuilder = new DeckBuilder();
+        deckBuilder.addCard(LoRCard.of("04SH073"), 3);
+        deckBuilder.addCard(LoRCard.of("04SH013"), 3);
+        deckBuilder.addCard(LoRCard.of("04SH038"), 3);
+        deckBuilder.addCard(LoRCard.of("04SH076"), 3);
+
+        LoRDeck deck = deckBuilder.toDomain();
+
+        String  code    = DeckCodeParser.encode(deck);
+        LoRDeck decoded = DeckCodeParser.decode(code);
+
+        assertTrue(checkSameDeck(deck, decoded));
+    }
+
+    @Test
+    void newShurimaChampions() {
+        DeckBuilder deckBuilder = new DeckBuilder();
+        deckBuilder.addCard(LoRCard.of(LoRChampion.TALIYAH.getId()), 3);
+        deckBuilder.addCard(LoRCard.of(LoRChampion.SIVIR.getId()), 3);
+        deckBuilder.addCard(LoRCard.of(LoRChampion.NASUS.getId()), 3);
+
+        LoRDeck deck = deckBuilder.toDomain();
+
+        assertNotNull(deck);
+
+        assertTrue(deck.getChampions().contains(LoRChampion.TALIYAH));
+        assertTrue(deck.getChampions().contains(LoRChampion.SIVIR));
+        assertTrue(deck.getChampions().contains(LoRChampion.NASUS));
+    }
+
     private void checkCode(String code)
     {
         try
