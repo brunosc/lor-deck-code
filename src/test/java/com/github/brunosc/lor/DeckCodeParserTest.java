@@ -345,6 +345,7 @@ class DeckCodeParserTest {
         deckBuilder.addCard(LoRCard.of(LoRChampion.TALIYAH.getId()), 3);
         deckBuilder.addCard(LoRCard.of(LoRChampion.SIVIR.getId()), 3);
         deckBuilder.addCard(LoRCard.of(LoRChampion.NASUS.getId()), 3);
+        deckBuilder.addCard(LoRCard.of(LoRChampion.AZIR.getId()), 3);
 
         LoRDeck deck = deckBuilder.toDomain();
 
@@ -353,6 +354,7 @@ class DeckCodeParserTest {
         assertTrue(deck.getChampions().contains(LoRChampion.TALIYAH));
         assertTrue(deck.getChampions().contains(LoRChampion.SIVIR));
         assertTrue(deck.getChampions().contains(LoRChampion.NASUS));
+        assertTrue(deck.getChampions().contains(LoRChampion.AZIR));
     }
 
     private void checkCode(String code)

@@ -64,7 +64,8 @@ public enum LoRChampion {
     KINDRED("04SI005"),
     TALIYAH("04SH073"),
     JARVAN_IV("04DE008"),
-    NASUS("04SH047");
+    NASUS("04SH047"),
+    AZIR("04SH003");
 
 
     private final String id;
