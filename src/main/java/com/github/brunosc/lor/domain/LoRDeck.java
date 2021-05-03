@@ -26,4 +26,12 @@ public class LoRDeck {
     public Set<LoRChampion> getChampions() {
         return champions;
     }
+
+    @Override
+    public String toString() {
+        return "LoRDeck{ " +
+                "regions=" + regions +
+                ", champions=" + champions +
+                " }";
+    }
 }

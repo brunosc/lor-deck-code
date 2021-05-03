@@ -72,16 +72,6 @@ class DeckCodeParserTest {
     }
 
     @Test
-    void decodeEncode() {
-        String deckCode = "CIBAIAIFB4WDANQIAEAQGDAUDAQSIJZUAIAQCAIEAEAQKBIA";
-
-        LoRDeck deck = DeckCodeParser.decode(deckCode);
-        String  result = DeckCodeParser.encode(deck);
-
-        assertEquals(deckCode, result);
-    }
-
-    @Test
     void smallDeck() {
         DeckBuilder deckBuilder = new DeckBuilder();
         deckBuilder.addCard(LoRCard.of("01DE002"), 3);
