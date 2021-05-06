@@ -66,6 +66,8 @@ public enum LoRChampion {
     JARVAN_IV("04DE008"),
     NASUS("04SH047"),
     AZIR("04SH003"),
+    ZILEAN("04SH039"),
+    MALPHITE("04MT008"),
     IRELIA("04IO005");
 
 
