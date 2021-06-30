@@ -49,7 +49,7 @@ public class LoRCard {
     <dependency>
         <groupId>com.github.brunosc</groupId>
         <artifactId>lor-deck-code</artifactId>
-        <version>0.0.4</version>
+        <version>${lor-deck-code.version}</version>
     </dependency>
 </dependencies>
 ```
