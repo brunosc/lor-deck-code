@@ -71,7 +71,9 @@ public enum LoRChampion {
     IRELIA("04IO005"),
     EKKO("04PZ001"),
     PYKE("04BW005"),
-    REK_SAI("04SH019");
+    REK_SAI("04SH019"),
+    AKSHAN("04SH130"),
+    VIEGO("04SI055");
 
 
     private final String id;
