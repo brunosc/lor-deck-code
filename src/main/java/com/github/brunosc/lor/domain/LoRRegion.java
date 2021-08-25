@@ -8,16 +8,18 @@ import java.util.EnumSet;
 import java.util.List;
 
 public enum LoRRegion {
-    DEMACIA("DE", 0),
-    FRELJORD("FR", 1),
-    IONIA("IO", 2),
-    NOXUS("NX", 3),
-    PILTOVER_AND_ZAUN("PZ", 4),
-    SHADOW_ILES("SI", 5),
-    BILGEWATER("BW", 6),
-    SHURIMA("SH", 7),
-    MOUNT_TARGON("MT", 9);
+    DEMACIA(1, "DE", 0),
+    FRELJORD(1, "FR", 1),
+    IONIA(1, "IO", 2),
+    NOXUS(1, "NX", 3),
+    PILTOVER_AND_ZAUN(1, "PZ", 4),
+    SHADOW_ILES(1, "SI", 5),
+    BILGEWATER(2, "BW", 6),
+    SHURIMA(3, "SH", 7),
+    MOUNT_TARGON(2, "MT", 9),
+    BANDLE_CITY(4, "BC", 10);
 
+    private final int version;
     private final String code;
     private final int id;
 
@@ -27,7 +29,8 @@ public enum LoRRegion {
         regions = new ArrayList<>(EnumSet.allOf(LoRRegion.class));
     }
 
-    LoRRegion(String code, int id) {
+    LoRRegion(int version, String code, int id) {
+        this.version = version;
         this.code = code;
         this.id = id;
     }
@@ -38,6 +41,10 @@ public enum LoRRegion {
 
     public int getId() {
         return id;
+    }
+
+    public int getVersion() {
+        return version;
     }
 
     public String prettyName() {

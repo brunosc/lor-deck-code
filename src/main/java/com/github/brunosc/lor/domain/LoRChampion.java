@@ -73,7 +73,16 @@ public enum LoRChampion {
     PYKE("04BW005"),
     REK_SAI("04SH019"),
     AKSHAN("04SH130"),
-    VIEGO("04SI055");
+    VIEGO("04SI055"),
+    CAITLYN("05PZ006"),
+    NAMI("05BW005"),
+    TRISTANA("05BC133"),
+    ZIGGS("05BC163"),
+    POPPY("05BC041"),
+    VEIGAR("05BC093"),
+    XERATH("05SH014"),
+    SENNA("05SI009"),
+    SION("05NX001");
 
 
     private final String id;

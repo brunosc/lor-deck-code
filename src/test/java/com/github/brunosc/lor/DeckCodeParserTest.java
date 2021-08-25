@@ -347,6 +347,18 @@ class DeckCodeParserTest {
         assertTrue(deck.getChampions().contains(LoRChampion.AZIR));
     }
 
+    @Test
+    void bundleCity() {
+        DeckBuilder deckBuilder = new DeckBuilder();
+        deckBuilder.addCard(LoRCard.of("01BC002"), 4);
+
+        LoRDeck deck = deckBuilder.toDomain();
+        String  code    = DeckCodeParser.encode(deck);
+        LoRDeck decoded = DeckCodeParser.decode(code);
+
+        assertTrue(checkSameDeck(deck, decoded));
+    }
+
     private void checkCode(String code)
     {
         try

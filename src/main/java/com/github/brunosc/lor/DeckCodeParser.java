@@ -21,7 +21,7 @@ public class DeckCodeParser {
         int format = firstByte >>> 4;
         int version = firstByte & 0xF;
 
-        int MAX_KNOWN_VERSION = 3;
+        int MAX_KNOWN_VERSION = Arrays.stream(LoRRegion.values()).mapToInt(LoRRegion::getVersion).max().orElse(1);
         if (version > MAX_KNOWN_VERSION) {
             throw new IllegalArgumentException("The provided code requires a higher version of this library; please update");
         }
@@ -69,7 +69,14 @@ public class DeckCodeParser {
         }
 
         // format and version = 0001 0011
-        result.add(0b0001_0011);
+        int FORMAT = 1;
+        int VERSION = deck.getCards().keySet().stream()
+                .map(LoRCard::getRegion)
+                .map(LoRRegion::getVersion)
+                .max(Comparator.comparingInt(i -> i))
+                .orElse(1);
+        int formatAndVersion = ((FORMAT << 4) | (VERSION & 0xF));
+        result.add(formatAndVersion);
 
         Map<Integer, List<Map.Entry<LoRCard, Integer>>> counts = deck.getCards().entrySet().stream()
                 .collect(Collectors.groupingBy(Map.Entry::getValue));
