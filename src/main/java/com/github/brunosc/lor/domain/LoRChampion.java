@@ -82,7 +82,11 @@ public enum LoRChampion {
     VEIGAR("05BC093"),
     XERATH("05SH014"),
     SENNA("05SI009"),
-    SION("05NX001");
+    SION("05NX001"),
+    KENNEN("05BC058"),
+    AHRI("05IO004"),
+    PANTHEON("05MT003"),
+    RUMBLE("05BC088");
 
 
     private final String id;

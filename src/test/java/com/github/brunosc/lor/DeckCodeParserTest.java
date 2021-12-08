@@ -359,8 +359,25 @@ class DeckCodeParserTest {
         assertTrue(checkSameDeck(deck, decoded));
     }
 
-    private void checkCode(String code)
-    {
+    @Test
+    void magicMisadventures() {
+        DeckBuilder deckBuilder = new DeckBuilder();
+        deckBuilder.addCard(LoRCard.of(LoRChampion.KENNEN.getId()), 3);
+        deckBuilder.addCard(LoRCard.of(LoRChampion.AHRI.getId()), 3);
+        deckBuilder.addCard(LoRCard.of(LoRChampion.PANTHEON.getId()), 3);
+        deckBuilder.addCard(LoRCard.of(LoRChampion.RUMBLE.getId()), 3);
+
+        LoRDeck deck = deckBuilder.toDomain();
+
+        assertNotNull(deck);
+
+        assertTrue(deck.getChampions().contains(LoRChampion.KENNEN));
+        assertTrue(deck.getChampions().contains(LoRChampion.AHRI));
+        assertTrue(deck.getChampions().contains(LoRChampion.PANTHEON));
+        assertTrue(deck.getChampions().contains(LoRChampion.RUMBLE));
+    }
+
+    private void checkCode(String code) {
         try
         {
             DeckCodeParser.decode(code);
