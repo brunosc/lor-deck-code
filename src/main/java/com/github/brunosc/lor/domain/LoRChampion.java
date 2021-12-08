@@ -86,7 +86,8 @@ public enum LoRChampion {
     KENNEN("05BC058"),
     AHRI("05IO004"),
     PANTHEON("05MT003"),
-    RUMBLE("05BC088");
+    RUMBLE("05BC088"),
+    JAYCE("05PZ022");
 
 
     private final String id;
