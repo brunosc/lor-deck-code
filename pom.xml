@@ -6,10 +6,10 @@
 
     <groupId>com.github.brunosc.lor</groupId>
     <artifactId>lor-deck-code</artifactId>
-    <version>0.0.15</version>
+    <version>0.0.16</version>
 
     <properties>
-        <junit.version>5.1.0</junit.version>
+        <junit.version>5.8.2</junit.version>
     </properties>
 
     <dependencies>

@@ -1,16 +1,13 @@
 package com.github.brunosc.lor;
 
 import com.github.brunosc.lor.domain.LoRCard;
-import com.github.brunosc.lor.domain.LoRChampion;
 import com.github.brunosc.lor.domain.LoRDeck;
-import com.github.brunosc.lor.domain.LoRRegion;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,13 +32,13 @@ class DeckCodeParserTest {
                 String line = scanner.nextLine();
                 codes.add(line);
 
-                DeckBuilder deckBuilder = new DeckBuilder();
+                LoRDeck deck = new LoRDeck();
                 while (scanner.hasNextLine() && !(line = scanner.nextLine()).equalsIgnoreCase("")) {
                     String[] parts = line.split(":");
-                    deckBuilder.addCard(LoRCard.of(parts[1]), Integer.parseInt(parts[0]));
+                    deck.addCard(LoRCard.of(parts[1]), Integer.parseInt(parts[0]));
                 }
 
-                decks.add(deckBuilder.toDomain());
+                decks.add(deck);
             }
         }
 
@@ -58,25 +55,13 @@ class DeckCodeParserTest {
     void decode() {
         String deckCode = "CECAIAIDAIHSQNYDAMCQGBAGAMAQKJZVHAAQEAYDAMAQEAYEAEAQGJIBAMCQEAIBAEBS4";
         LoRDeck deck = DeckCodeParser.decode(deckCode);
-
         assertNotNull(deck);
-
-        LoRChampion elise = deck.getChampions().stream().findFirst().orElse(null);
-        assertNotNull(elise);
-        assertEquals(elise.getId(), LoRChampion.ELISE.getId());
-        assertEquals(elise.prettyName(), "Elise");
-
-        Set<LoRRegion> regions = deck.getRegions();
-        assertTrue(regions.contains(LoRRegion.NOXUS));
-        assertTrue(regions.contains(LoRRegion.SHADOW_ILES));
     }
 
     @Test
     void smallDeck() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01DE002"), 3);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE002"), 3);
 
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
@@ -86,29 +71,27 @@ class DeckCodeParserTest {
 
     @Test
     void largeDeck() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01DE002"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE003"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE004"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE005"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE006"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE007"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE008"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE009"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE010"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE011"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE012"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE013"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE014"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE015"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE016"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE017"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE018"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE019"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE020"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE021"), 3);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE002"), 3);
+        deck.addCard(LoRCard.of("01DE003"), 3);
+        deck.addCard(LoRCard.of("01DE004"), 3);
+        deck.addCard(LoRCard.of("01DE005"), 3);
+        deck.addCard(LoRCard.of("01DE006"), 3);
+        deck.addCard(LoRCard.of("01DE007"), 3);
+        deck.addCard(LoRCard.of("01DE008"), 3);
+        deck.addCard(LoRCard.of("01DE009"), 3);
+        deck.addCard(LoRCard.of("01DE010"), 3);
+        deck.addCard(LoRCard.of("01DE011"), 3);
+        deck.addCard(LoRCard.of("01DE012"), 3);
+        deck.addCard(LoRCard.of("01DE013"), 3);
+        deck.addCard(LoRCard.of("01DE014"), 3);
+        deck.addCard(LoRCard.of("01DE015"), 3);
+        deck.addCard(LoRCard.of("01DE016"), 3);
+        deck.addCard(LoRCard.of("01DE017"), 3);
+        deck.addCard(LoRCard.of("01DE018"), 3);
+        deck.addCard(LoRCard.of("01DE019"), 3);
+        deck.addCard(LoRCard.of("01DE020"), 3);
+        deck.addCard(LoRCard.of("01DE021"), 3);
 
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
@@ -118,13 +101,11 @@ class DeckCodeParserTest {
 
     @Test
     void moreThan3Small() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01DE002"), 4);
-        deckBuilder.addCard(LoRCard.of("02BW003"), 2);
-        deckBuilder.addCard(LoRCard.of("02BW010"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE004"), 5);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE002"), 4);
+        deck.addCard(LoRCard.of("02BW003"), 2);
+        deck.addCard(LoRCard.of("02BW010"), 3);
+        deck.addCard(LoRCard.of("01DE004"), 5);
 
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
@@ -134,29 +115,27 @@ class DeckCodeParserTest {
 
     @Test
     void moreThan3Large() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01DE002"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE003"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE004"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE005"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE006"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE007"), 5);
-        deckBuilder.addCard(LoRCard.of("01DE008"), 6);
-        deckBuilder.addCard(LoRCard.of("01DE009"), 7);
-        deckBuilder.addCard(LoRCard.of("01DE010"), 8);
-        deckBuilder.addCard(LoRCard.of("01DE011"), 9);
-        deckBuilder.addCard(LoRCard.of("01DE012"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE013"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE014"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE015"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE016"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE017"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE018"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE019"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE020"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE021"), 3);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE002"), 3);
+        deck.addCard(LoRCard.of("01DE003"), 3);
+        deck.addCard(LoRCard.of("01DE004"), 3);
+        deck.addCard(LoRCard.of("01DE005"), 3);
+        deck.addCard(LoRCard.of("01DE006"), 4);
+        deck.addCard(LoRCard.of("01DE007"), 5);
+        deck.addCard(LoRCard.of("01DE008"), 6);
+        deck.addCard(LoRCard.of("01DE009"), 7);
+        deck.addCard(LoRCard.of("01DE010"), 8);
+        deck.addCard(LoRCard.of("01DE011"), 9);
+        deck.addCard(LoRCard.of("01DE012"), 3);
+        deck.addCard(LoRCard.of("01DE013"), 3);
+        deck.addCard(LoRCard.of("01DE014"), 3);
+        deck.addCard(LoRCard.of("01DE015"), 3);
+        deck.addCard(LoRCard.of("01DE016"), 3);
+        deck.addCard(LoRCard.of("01DE017"), 3);
+        deck.addCard(LoRCard.of("01DE018"), 3);
+        deck.addCard(LoRCard.of("01DE019"), 3);
+        deck.addCard(LoRCard.of("01DE020"), 3);
+        deck.addCard(LoRCard.of("01DE021"), 3);
 
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
@@ -166,10 +145,8 @@ class DeckCodeParserTest {
 
     @Test
     void singleCard40() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01DE002"), 40);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE002"), 40);
 
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
@@ -179,29 +156,27 @@ class DeckCodeParserTest {
 
     @Test
     void worstCaseLength() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01DE002"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE003"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE004"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE005"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE006"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE007"), 5);
-        deckBuilder.addCard(LoRCard.of("01DE008"), 6);
-        deckBuilder.addCard(LoRCard.of("01DE009"), 7);
-        deckBuilder.addCard(LoRCard.of("01DE010"), 8);
-        deckBuilder.addCard(LoRCard.of("01DE011"), 9);
-        deckBuilder.addCard(LoRCard.of("01DE012"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE013"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE014"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE015"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE016"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE017"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE018"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE019"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE020"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE021"), 4);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE002"), 4);
+        deck.addCard(LoRCard.of("01DE003"), 4);
+        deck.addCard(LoRCard.of("01DE004"), 4);
+        deck.addCard(LoRCard.of("01DE005"), 4);
+        deck.addCard(LoRCard.of("01DE006"), 4);
+        deck.addCard(LoRCard.of("01DE007"), 5);
+        deck.addCard(LoRCard.of("01DE008"), 6);
+        deck.addCard(LoRCard.of("01DE009"), 7);
+        deck.addCard(LoRCard.of("01DE010"), 8);
+        deck.addCard(LoRCard.of("01DE011"), 9);
+        deck.addCard(LoRCard.of("01DE012"), 4);
+        deck.addCard(LoRCard.of("01DE013"), 4);
+        deck.addCard(LoRCard.of("01DE014"), 4);
+        deck.addCard(LoRCard.of("01DE015"), 4);
+        deck.addCard(LoRCard.of("01DE016"), 4);
+        deck.addCard(LoRCard.of("01DE017"), 4);
+        deck.addCard(LoRCard.of("01DE018"), 4);
+        deck.addCard(LoRCard.of("01DE019"), 4);
+        deck.addCard(LoRCard.of("01DE020"), 4);
+        deck.addCard(LoRCard.of("01DE021"), 4);
 
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
@@ -211,21 +186,17 @@ class DeckCodeParserTest {
 
     @Test
     void orderDoesNotMatter() {
-        DeckBuilder deckBuilder = new DeckBuilder();
+        LoRDeck deck1 = new LoRDeck();
+        deck1.addCard(LoRCard.of("01DE002"), 1);
+        deck1.addCard(LoRCard.of("01DE003"), 2);
+        deck1.addCard(LoRCard.of("02DE003"), 3);
 
-        deckBuilder.addCard(LoRCard.of("01DE002"), 1);
-        deckBuilder.addCard(LoRCard.of("01DE003"), 2);
-        deckBuilder.addCard(LoRCard.of("02DE003"), 3);
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck2 = new LoRDeck();
+        deck2.addCard(LoRCard.of("01DE003"), 2);
+        deck2.addCard(LoRCard.of("02DE003"), 3);
+        deck2.addCard(LoRCard.of("01DE002"), 1);
 
-        deckBuilder.clear();
-
-        deckBuilder.addCard(LoRCard.of("01DE003"), 2);
-        deckBuilder.addCard(LoRCard.of("02DE003"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE002"), 1);
-        LoRDeck deck2 = deckBuilder.toDomain();
-
-        String code  = DeckCodeParser.encode(deck);
+        String code  = DeckCodeParser.encode(deck1);
         String code2 = DeckCodeParser.encode(deck2);
 
         assertEquals(code, code2);
@@ -233,23 +204,20 @@ class DeckCodeParserTest {
 
     @Test
     void orderDoesNotMatterMoreThan3() {
-        DeckBuilder deckBuilder = new DeckBuilder();
+        LoRDeck deck1 = new LoRDeck();
+        deck1.addCard(LoRCard.of("01DE002"), 4);
+        deck1.addCard(LoRCard.of("01DE003"), 2);
+        deck1.addCard(LoRCard.of("02DE003"), 3);
+        deck1.addCard(LoRCard.of("01DE004"), 5);
 
-        deckBuilder.addCard(LoRCard.of("01DE002"), 4);
-        deckBuilder.addCard(LoRCard.of("01DE003"), 2);
-        deckBuilder.addCard(LoRCard.of("02DE003"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE004"), 5);
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck2 = new LoRDeck();
+        deck2.addCard(LoRCard.of("01DE004"), 5);
+        deck2.addCard(LoRCard.of("01DE003"), 2);
+        deck2.addCard(LoRCard.of("02DE003"), 3);
+        deck2.addCard(LoRCard.of("01DE002"), 4);
 
-        deckBuilder.clear();
 
-        deckBuilder.addCard(LoRCard.of("01DE004"), 5);
-        deckBuilder.addCard(LoRCard.of("01DE003"), 2);
-        deckBuilder.addCard(LoRCard.of("02DE003"), 3);
-        deckBuilder.addCard(LoRCard.of("01DE002"), 4);
-        LoRDeck deck2 = deckBuilder.toDomain();
-
-        String code  = DeckCodeParser.encode(deck);
+        String code  = DeckCodeParser.encode(deck1);
         String code2 = DeckCodeParser.encode(deck2);
 
         assertEquals(code, code2);
@@ -257,17 +225,15 @@ class DeckCodeParserTest {
 
     @Test
     void invalidDecks() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01DE02"), 1);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE02"), 1);
 
         String deckCode = DeckCodeParser.encode(deck);
         assertNull(deckCode);
 
         try {
-            deckBuilder.clear();
-            deckBuilder.addCard(LoRCard.of("01DE002"), 0);
+            LoRDeck deckWithZero = new LoRDeck();
+            deckWithZero.addCard(LoRCard.of("01DE002"), 0);
             DeckCodeParser.encode(deck);
 
             fail("Count is 0, so it shouldn't return a valid card");
@@ -276,8 +242,8 @@ class DeckCodeParserTest {
         }
 
         try {
-            deckBuilder.clear();
-            deckBuilder.addCard(LoRCard.of("01DE002"), -1);
+            LoRDeck deckWithNegative = new LoRDeck();
+            deckWithNegative.addCard(LoRCard.of("01DE002"), -1);
             DeckCodeParser.encode(deck);
 
             fail("Count is less than 1, but didn't fail");
@@ -299,13 +265,11 @@ class DeckCodeParserTest {
 
     @Test
     void targon() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01DE002"), 1);
-        deckBuilder.addCard(LoRCard.of("03MT003"), 1);
-        deckBuilder.addCard(LoRCard.of("03MT010"), 1);
-        deckBuilder.addCard(LoRCard.of("02BW004"), 1);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE002"), 1);
+        deck.addCard(LoRCard.of("03MT003"), 1);
+        deck.addCard(LoRCard.of("03MT010"), 1);
+        deck.addCard(LoRCard.of("02BW004"), 1);
 
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
@@ -315,66 +279,26 @@ class DeckCodeParserTest {
 
     @Test
     void shurima() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("04SH073"), 3);
-        deckBuilder.addCard(LoRCard.of("04SH013"), 3);
-        deckBuilder.addCard(LoRCard.of("04SH038"), 3);
-        deckBuilder.addCard(LoRCard.of("04SH076"), 3);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("04SH073"), 3);
+        deck.addCard(LoRCard.of("04SH013"), 3);
+        deck.addCard(LoRCard.of("04SH038"), 3);
+        deck.addCard(LoRCard.of("04SH076"), 3);
 
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
 
         assertTrue(checkSameDeck(deck, decoded));
-    }
-
-    @Test
-    void newShurimaChampions() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of(LoRChampion.TALIYAH.getId()), 3);
-        deckBuilder.addCard(LoRCard.of(LoRChampion.SIVIR.getId()), 3);
-        deckBuilder.addCard(LoRCard.of(LoRChampion.NASUS.getId()), 3);
-        deckBuilder.addCard(LoRCard.of(LoRChampion.AZIR.getId()), 3);
-
-        LoRDeck deck = deckBuilder.toDomain();
-
-        assertNotNull(deck);
-
-        assertTrue(deck.getChampions().contains(LoRChampion.TALIYAH));
-        assertTrue(deck.getChampions().contains(LoRChampion.SIVIR));
-        assertTrue(deck.getChampions().contains(LoRChampion.NASUS));
-        assertTrue(deck.getChampions().contains(LoRChampion.AZIR));
     }
 
     @Test
     void bundleCity() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of("01BC002"), 4);
-
-        LoRDeck deck = deckBuilder.toDomain();
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01BC002"), 4);
         String  code    = DeckCodeParser.encode(deck);
         LoRDeck decoded = DeckCodeParser.decode(code);
 
         assertTrue(checkSameDeck(deck, decoded));
-    }
-
-    @Test
-    void magicMisadventures() {
-        DeckBuilder deckBuilder = new DeckBuilder();
-        deckBuilder.addCard(LoRCard.of(LoRChampion.KENNEN.getId()), 3);
-        deckBuilder.addCard(LoRCard.of(LoRChampion.AHRI.getId()), 3);
-        deckBuilder.addCard(LoRCard.of(LoRChampion.PANTHEON.getId()), 3);
-        deckBuilder.addCard(LoRCard.of(LoRChampion.RUMBLE.getId()), 3);
-
-        LoRDeck deck = deckBuilder.toDomain();
-
-        assertNotNull(deck);
-
-        assertTrue(deck.getChampions().contains(LoRChampion.KENNEN));
-        assertTrue(deck.getChampions().contains(LoRChampion.AHRI));
-        assertTrue(deck.getChampions().contains(LoRChampion.PANTHEON));
-        assertTrue(deck.getChampions().contains(LoRChampion.RUMBLE));
     }
 
     private void checkCode(String code) {

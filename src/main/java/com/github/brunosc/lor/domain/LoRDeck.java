@@ -1,37 +1,27 @@
 package com.github.brunosc.lor.domain;
 
+import com.github.brunosc.lor.DeckCodeParser;
+
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class LoRDeck {
 
-    private final Map<LoRCard, Integer> cards;
-    private final Set<LoRRegion> regions;
-    private final Set<LoRChampion> champions;
-
-    public LoRDeck(Map<LoRCard, Integer> cards, Set<LoRRegion> regions, Set<LoRChampion> champions) {
-        this.cards = cards;
-        this.regions = regions;
-        this.champions = champions;
-    }
+    private final Map<LoRCard, Integer> cards = new HashMap<>();
 
     public Map<LoRCard, Integer> getCards() {
         return cards;
     }
 
-    public Set<LoRRegion> getRegions() {
-        return regions;
+    public void addCard(LoRCard card, int count) {
+        if (count < 1) {
+            throw new IllegalArgumentException("Count must be at least 1");
+        }
+        cards.put(card, count);
     }
 
-    public Set<LoRChampion> getChampions() {
-        return champions;
+    public String getDeckCode() {
+        return DeckCodeParser.encode(this);
     }
 
-    @Override
-    public String toString() {
-        return "LoRDeck{ " +
-                "regions=" + regions +
-                ", champions=" + champions +
-                " }";
-    }
 }

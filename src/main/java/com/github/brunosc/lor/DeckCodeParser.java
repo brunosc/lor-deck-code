@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class DeckCodeParser {
 
     public static LoRDeck decode(String code) {
-        DeckBuilder deck = new DeckBuilder();
+        LoRDeck deck = new LoRDeck();
         List<Byte> bytes = new ArrayList<>(Arrays.asList(Base32.decodeBoxed(code)));
 
         int firstByte = bytes.remove(0);
@@ -58,7 +58,7 @@ public class DeckCodeParser {
             deck.addCard(LoRCard.of(setString, factionString, numberString), count);
         }
 
-        return deck.toDomain();
+        return deck;
     }
 
     public static String encode(LoRDeck deck) {

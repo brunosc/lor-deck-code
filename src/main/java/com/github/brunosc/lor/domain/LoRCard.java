@@ -1,8 +1,8 @@
 package com.github.brunosc.lor.domain;
 
-import com.github.brunosc.lor.LoRUtils;
-
 import java.util.Objects;
+
+import static com.github.brunosc.lor.LoRUtils.padLeft;
 
 public class LoRCard {
 
@@ -44,7 +44,7 @@ public class LoRCard {
     }
 
     public String getCardCode() {
-        return LoRUtils.padLeft(String.valueOf(set), "0", 2) + region.getCode() + LoRUtils.padLeft(String.valueOf(id), "0", 3);
+        return padLeft(String.valueOf(set), "0", 2) + region.getCode() + padLeft(String.valueOf(id), "0", 3);
     }
 
     public int getSet() {
