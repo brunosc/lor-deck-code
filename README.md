@@ -17,9 +17,7 @@ LoRDeck deck = DeckCodeParser.decode(deckCode);
 
 ```
 public class LoRDeck {
-    private final Map<LoRCard, Integer> cards;
-    private final Set<LoRRegion> regions;
-    private final Set<LoRChampion> champions;    
+    private final Map<LoRCard, Integer> cards; 
 }
 ```
 
