@@ -17,7 +17,8 @@ public enum LoRRegion {
     BILGEWATER(2, "BW", 6),
     SHURIMA(3, "SH", 7),
     MOUNT_TARGON(2, "MT", 9),
-    BANDLE_CITY(4, "BC", 10);
+    BANDLE_CITY(4, "BC", 10),
+    RUNETERRA(5, "RU", 12);
 
     private final int version;
     private final String code;

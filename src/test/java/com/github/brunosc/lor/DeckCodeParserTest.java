@@ -3,6 +3,8 @@ package com.github.brunosc.lor;
 import com.github.brunosc.lor.domain.LoRCard;
 import com.github.brunosc.lor.domain.LoRDeck;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -299,6 +301,31 @@ class DeckCodeParserTest {
         LoRDeck decoded = DeckCodeParser.decode(code);
 
         assertTrue(checkSameDeck(deck, decoded));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+         "MT, 2",
+         "SH, 3",
+         "BC, 4",
+         "RU, 5"
+    })
+    void deckVersionIsTheMinimumLibraryVersionThatSupportsTheContainedFactions(String faction, int expectedVersion) {
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(LoRCard.of("01DE001"), 1);
+        deck.addCard(LoRCard.of("01" + faction + "002"), 1);
+        deck.addCard(LoRCard.of("01FR001"), 1);
+
+        String deckCode = DeckCodeParser.encode(deck);
+
+        int minSupportedLibraryVersion = extractVersionFromDeckCode(deckCode);
+
+        assertEquals(expectedVersion, minSupportedLibraryVersion);
+    }
+
+    private int extractVersionFromDeckCode(String deckCode) {
+        byte[] bytes = Base32.decode(deckCode);
+        return bytes[0] & 0xF;
     }
 
     private void checkCode(String code) {

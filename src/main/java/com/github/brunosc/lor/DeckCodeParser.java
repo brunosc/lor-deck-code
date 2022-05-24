@@ -7,6 +7,7 @@ import com.github.brunosc.lor.domain.LoRRegion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,8 +22,8 @@ public class DeckCodeParser {
         int format = firstByte >>> 4;
         int version = firstByte & 0xF;
 
-        int MAX_KNOWN_VERSION = Arrays.stream(LoRRegion.values()).mapToInt(LoRRegion::getVersion).max().orElse(1);
-        if (version > MAX_KNOWN_VERSION) {
+        int maxVersion = maxVersion();
+        if (version > maxVersion) {
             throw new IllegalArgumentException("The provided code requires a higher version of this library; please update");
         }
 
@@ -69,13 +70,9 @@ public class DeckCodeParser {
         }
 
         // format and version = 0001 0011
-        int FORMAT = 1;
-        int VERSION = deck.getCards().keySet().stream()
-                .map(LoRCard::getRegion)
-                .map(LoRRegion::getVersion)
-                .max(Comparator.comparingInt(i -> i))
-                .orElse(1);
-        int formatAndVersion = ((FORMAT << 4) | (VERSION & 0xF));
+        int format = 1;
+        int version = getMinSupportedLibraryVersion(deck);
+        int formatAndVersion = ((format << 4) | (version & 0xF));
         result.add(formatAndVersion);
 
         Map<Integer, List<Map.Entry<LoRCard, Integer>>> counts = deck.getCards().entrySet().stream()
@@ -160,5 +157,26 @@ public class DeckCodeParser {
         return result;
     }
 
+    private static int maxVersion() {
+        return EnumSet.allOf(LoRRegion.class)
+                .stream()
+                .mapToInt(LoRRegion::getVersion)
+                .max()
+                .orElse(1);
+    }
+
+    private static int getMinSupportedLibraryVersion(LoRDeck deck) {
+        if (deck == null || deck.getCards() == null) {
+            return 1;
+        }
+
+        return deck.getCards()
+                .keySet()
+                .stream()
+                .map(LoRCard::getRegion)
+                .map(LoRRegion::getVersion)
+                .max(Comparator.comparingInt(i -> i))
+                .orElse(1);
+    }
 
 }
